@@ -1,0 +1,75 @@
+input.check,
+button.delete {
+  margin-left: 40%;
+}
+span.done {
+  text-decoration: line-through !important;
+}
+
+/* *{
+	outline:1px dotted red;
+} */
+
+.container {
+  text-align: center;
+  margin: 0 auto;
+  width: 500px;
+}
+
+header {
+  background: url(../images/background-image.png) center / cover;
+  height: 60vh;
+  display: flex;
+  position: relative;
+}
+
+h1 {
+  color: hsla(0, 66%, 89%, 55);
+  font-weight: bold;
+}
+.slogan {
+  color: hsla(89, 23%, 0%, 55);
+  font-weight: lighter;
+  font-size: 1.6rem;
+}
+
+main {
+  max-width: 900px;
+}
+
+.project-description {
+  padding-left: 0;
+}
+
+.project img {
+  width: 100%;
+}
+
+header.mdl-layout__header {
+  display: flex;
+  justify-content: center;
+}
+
+footer.mdl-mini-footer {
+  bottom: 0;
+  padding: 0.5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+footer.mdl-mini-footer > ul {
+  margin: auto;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 1024px) {
+  header.mdl-layout__header {
+    display: flex;
+    text-align: center;
+  }
+}
+
+body {
+  padding-bottom: 5rem;
+}
