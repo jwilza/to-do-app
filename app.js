@@ -1,74 +1,96 @@
+let id = 0
+
 function onReady() {
-  const addToDoForm = document.getElementById('addToDoForm')
-  const newToDoText = document.getElementById('newToDoText')
-  const toDoList = document.getElementById('toDoList')
+  let toDos = []
+  const addToDoForm = document.getElementById('addToDo')
 
-  addToDoForm.addEventListener('submit', () => {
-    event.preventDefault()
+  let LS = localStorage.getItem('todos')
 
-    // get the text
-    let title = newToDoText.value
+  if (LS != null && LS != '[]') {
+    toDos = JSON.parse(LS)
+    id = toDos[toDos.length - 1].id + 1
+    renderTheUI()
+  }
 
-    // create a new li
-    let listItem = document.createElement('li')
+  function createNewToDo() {
+    const newToDoText = document.getElementById('new-todo-input')
 
-    let text = document.createElement('p')
+    if (!newToDoText.value) {
+      console.log('N/A')
+      return
+    }
 
-    text.textContent = title
+    const todo = {
+      id: id++,
+      title: newToDoText.value,
+      complete: false
+    }
 
-    // create a new input
-    let checkbox = document.createElement('input')
-    checkbox.classList.add('mdl-checkbox__input')
-    // set the input's type to checkbox
-    checkbox.type = 'checkbox'
+    toDos.push(todo)
+    console.log('added to list')
 
-    //create a new button
-    let deletebtn = document.createElement('button')
-    deletebtn.classList.add('mdl-button')
-    deletebtn.classList.add('mdl-js-button')
-    deletebtn.classList.add('mdl-button--raised')
-    deletebtn.classList.add('mdl-button--colored')
-    deletebtn.classList.add('mdl-button--mini-fab')
-
-    deletebtn.innerHTML = 'Delete'
-
-    listItem.classList.add('mdl-list__item')
-
-    // SPAN ELEMENTS
-    let span1 = document.createElement('span')
-    let span2 = document.createElement('span')
-    let span3 = document.createElement('span')
-
-    span1.appendChild(checkbox)
-    span2.textContent = title
-    span3.appendChild(deletebtn)
-
-    span2.classList.add('mdl-list__item-primary-content')
-
-    listItem.appendChild(span1)
-    listItem.appendChild(span2)
-    listItem.appendChild(span3)
-
-    // attach the li to the ul
-    toDoList.appendChild(listItem)
-
-    //empty the input
     newToDoText.value = ''
 
-    deletebtn.addEventListener('click', () => {
-      listItem.remove()
-    })
+    renderTheUI()
 
-    checkbox.addEventListener('click', () => {
-      if (checkbox.checked) {
-        span2.classList.add('done')
-        deletebtn.style.display = 'none'
-      } else {
-        span2.classList.remove('done')
-        deletebtn.style.display = 'inline-block'
-      }
+    updateLS()
+  }
+
+  function updateLS() {
+    /* Add to local storage */
+    localStorage.setItem('todos', JSON.stringify(toDos))
+  }
+
+  function renderTheUI() {
+    const toDoList = document.getElementById('toDoList')
+
+    toDoList.textContent = ''
+
+    toDos.forEach((todo) => {
+      const newLi = document.createElement('li')
+      newLi.classList.add('mdl-list__item')
+      const span = document.createElement('span')
+      span.classList.add('mdl-list__item-primary-content')
+      const deleteBtn = document.createElement('button')
+
+      const icon = document.createElement('i')
+      icon.innerText = 'cancel'
+      icon.classList.add('material-icons')
+
+      deleteBtn.classList.add('mdl-chip__action')
+      deleteBtn.appendChild(icon)
+
+      const checkbox = document.createElement('input')
+      checkbox.classList.add('mdl-checkbox__input')
+      checkbox.type = 'checkbox'
+
+      checkbox.checked = todo.complete
+
+      toDoList.appendChild(newLi)
+      newLi.appendChild(span)
+      span.appendChild(checkbox)
+      span.append(todo.title)
+      span.appendChild(deleteBtn)
+
+      checkbox.addEventListener('click', () => {
+        todo.complete = !todo.complete
+        updateLS()
+      })
+
+      deleteBtn.addEventListener('click', (e) => {
+        toDos = toDos.filter((t) => t.id != todo.id)
+        updateLS()
+        renderTheUI()
+      })
     })
+  }
+
+  addToDoForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    createNewToDo()
   })
+
+  renderTheUI()
 }
 
 window.onload = function () {

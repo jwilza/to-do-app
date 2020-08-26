@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>To-Do App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-do web app</title>
 
-    <link rel="stylesheet" href="./reset.css" />
-    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="main.css" />
 
     <!-- Material Design Icons -->
     <link
@@ -27,28 +28,27 @@
         <div class="mdl-cell mdl-cell---col">
           <div class="demo-card-wide mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">To-Do List</h2>
+              <h1 class="mdl-card__title-text">To-do List</h1>
             </div>
             <div class="mdl-card__supporting-text">
-              <form id="addToDoForm">
+              <form id="addToDo">
                 <div
                   class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                 >
                   <input
-                    class="mdl-textfield__input"
                     type="text"
-                    id="newToDoText"
+                    id="new-todo-input"
+                    class="mdl-textfield__input"
                   />
-                  <label class="mdl-textfield__label" for="newToDoText"
-                    >Add a to-do</label
-                  >
+                  <label class="mdl-textfield__label" for="newToDoText">
+                    Add a to-do
+                  </label>
                 </div>
-
                 <button
-                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                   type="submit"
+                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                 >
-                  Add To-Do!
+                  submit
                 </button>
               </form>
 
@@ -56,6 +56,8 @@
             </div>
           </div>
         </div>
+
+        <ul class="mdl-list" id="toDoList"></ul>
       </div>
     </div>
 
